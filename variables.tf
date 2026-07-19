@@ -1,10 +1,21 @@
 variable "resource_group_name" {
-  description = "The name of the resource group in which the resources will be created"
-  default     = "terraform-compute"
+  description = "Name of the Azure Resource Group."
+  type        = string
+
+  validation {
+    condition     = length(var.resource_group_name) > 0
+    error_message = "Resource group name cannot be empty."
+  }
 }
 
 variable "location" {
-  description = "The location/region where the virtual network is created. Changing this forces a new resource to be created."
+  description = "Azure region where all resources will be deployed."
+  type        = string
+
+  validation {
+    condition     = length(var.location) > 0
+    error_message = "The location value cannot be empty."
+  }
 }
 
 variable "vnet_subnet_id" {
