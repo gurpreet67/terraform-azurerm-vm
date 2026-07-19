@@ -18,6 +18,11 @@ output "availability_set_id" {
   value       = "${azurerm_availability_set.vm.id}"
 }
 
+output "vm_location" {
+  description = "Azure region where the virtual machine is deployed."
+  value       = var.location
+}
+
 /* optionally, retrieve public IP properties
 output "public_ip_id" {
   description = "id of the public ip address provisoned."

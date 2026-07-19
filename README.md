@@ -189,3 +189,9 @@ License
 =======
 
 [MIT](LICENSE)
+
+## Prerequisites
+
+- Terraform >= 1.6
+- Azure CLI
+- An active Azure subscription
