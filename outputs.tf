@@ -34,4 +34,3 @@ output "public_ip_dns_name" {
   value       = "${azurerm_public_ip.vm.*.fqdn}"
 }
 */
-
