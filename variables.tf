@@ -13,7 +13,7 @@ variable "vnet_subnet_id" {
 
 variable "nsg_id" {
   description = "A Network Security Group ID to attach to the network interface"
-  default = ""
+  default     = ""
 }
 
 variable "public_ip_dns" {
@@ -52,8 +52,14 @@ variable "vm_size" {
 }
 
 variable "nb_instances" {
-  description = "Specify the number of vm instances"
-  default     = "1"
+  description = "Specify the number of VM instances."
+  type        = number
+  default     = 1
+
+  validation {
+    condition     = var.nb_instances >= 1
+    error_message = "nb_instances must be at least 1."
+  }
 }
 
 variable "vm_hostname" {
@@ -72,8 +78,9 @@ variable "vm_os_id" {
 }
 
 variable "is_windows_image" {
-  description = "Boolean flag to notify when the custom image is windows based. Only used in conjunction with vm_os_id"
-  default     = "false"
+  description = "Boolean flag to notify when the custom image is Windows based."
+  type        = bool
+  default     = false
 }
 
 variable "vm_os_publisher" {
@@ -97,7 +104,7 @@ variable "vm_os_version" {
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map(string)
   description = "A map of the tags to use on the resources that are deployed with this module."
 
   default = {
@@ -106,8 +113,14 @@ variable "tags" {
 }
 
 variable "public_ip_address_allocation" {
-  description = "Defines how an IP address is assigned. Options are Static or Dynamic."
+  description = "Defines how an IP address is assigned."
+  type        = string
   default     = "dynamic"
+
+  validation {
+    condition     = contains(["static", "dynamic"], lower(var.public_ip_address_allocation))
+    error_message = "public_ip_address_allocation must be either static or dynamic."
+  }
 }
 
 variable "nb_public_ip" {
@@ -131,9 +144,9 @@ variable "data_disk_size_gb" {
 }
 
 variable "data_disk" {
-  type        = "string"
-  description = "Set to true to add a datadisk."
-  default     = "false"
+  description = "Set to true to add a data disk."
+  type        = bool
+  default     = false
 }
 
 variable "boot_diagnostics" {
